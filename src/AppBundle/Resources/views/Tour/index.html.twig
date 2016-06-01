@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Tour list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Desc</th>
+                <th>Address</th>
+                <th>Begin</th>
+                <th>End</th>
+                <th>Places</th>
+                <th>Empty</th>
+                <th>Price</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('tour_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td>{{ entity.desc }}</td>
+                <td>{{ entity.address }}</td>
+                <td>{% if entity.begin %}{{ entity.begin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.end %}{{ entity.end|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.places }}</td>
+                <td>{{ entity.empty }}</td>
+                <td>{{ entity.price }}</td>
+                <td>{{ entity.x }}</td>
+                <td>{{ entity.y }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('tour_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('tour_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('tour_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

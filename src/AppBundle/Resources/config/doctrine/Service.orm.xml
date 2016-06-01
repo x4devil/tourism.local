@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Service" table="service">
+    <indexes>
+      <index name="id_sublegal" columns="id_sublegal"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="200" nullable="false"/>
+    <field name="description" type="text" column="description" length="65535" nullable="false"/>
+    <field name="price" type="integer" column="price" nullable="false"/>
+    <field name="base" type="boolean" column="base" nullable="true"/>
+    <field name="x" type="float" column="x" precision="10" scale="0" nullable="false"/>
+    <field name="y" type="float" column="y" precision="10" scale="0" nullable="false"/>
+    <many-to-one field="sublegal" target-entity="Base">
+      <join-columns>
+        <join-column name="id_sublegal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
