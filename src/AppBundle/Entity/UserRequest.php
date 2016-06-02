@@ -30,6 +30,13 @@ class UserRequest {
      * })
      */
     private $user;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="pay", type="boolean", nullable=false)
+     */
+    private $pay;
 
     /**
      * Get id
@@ -44,7 +51,7 @@ class UserRequest {
      * Set idUser
      *
      * @param \AppBundle\Entity\User $user
-     * @return Request
+     * @return UserRequest
      */
     public function setUser(\AppBundle\Entity\User $user = null) {
         $this->user = $user;
@@ -59,6 +66,21 @@ class UserRequest {
      */
     public function getUser() {
         return $this->user;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getPay() {
+        return $this->pay;
+    }
+    
+    /**
+     * 
+     * @param type boolean
+     */
+    public function setPay($pay) {
+        $this->pay = $pay;
     }
 
 }

@@ -7,7 +7,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="file" type="blob" column="file" length="65535" nullable="false"/>
+    <field name="file" type="string" column="file" length="300" nullable="false"/>
     <many-to-one field="tour" target-entity="Tour">
       <join-columns>
         <join-column name="id_tour" referenced-column-name="id"/>

@@ -15,7 +15,7 @@ class Pictures {
     /**
      * @var string
      *
-     * @ORM\Column(name="file", type="blob", length=65535, nullable=false)
+     * @ORM\Column(name="file", type="string", length=500, nullable=false)
      */
     private $file;
 
