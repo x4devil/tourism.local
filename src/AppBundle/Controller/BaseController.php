@@ -17,6 +17,8 @@ use AppBundle\Form\BaseType;
  */
 class BaseController extends Controller
 {
+    
+    protected $activePage = 'base';
 
     /**
      * Lists all Base entities.
@@ -33,6 +35,7 @@ class BaseController extends Controller
 
         return array(
             'entities' => $entities,
+            'activePage' => $this->activePage,
         );
     }
     /**
@@ -59,6 +62,7 @@ class BaseController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+           'activePage' => $this->activePage,
         );
     }
 
@@ -96,6 +100,7 @@ class BaseController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -121,6 +126,7 @@ class BaseController extends Controller
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -148,6 +154,7 @@ class BaseController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -200,6 +207,7 @@ class BaseController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
     /**

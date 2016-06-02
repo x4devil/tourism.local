@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/web/favicon.ico"></link>
+        <title>Панель администратора|{% block title -%}Базы{%endblock%}</title>
+
+        <link href="/web/admin/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/web/admin/css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Туризм</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        {% if activePage == 'base' %}
+                            <li class="active"><a href="{{ path('base') }}">Базы отдыха</a></li>
+                        {% else %}
+                            <li><a href="{{ path('base') }}">Базы отдыха</a></li>
+                        {% endif %}
+                        
+                        {% if activePage == 'tour' %}
+                            <li class="active"><a href="{{ path('tour') }}">Туры</a></li>
+                        {% else %}
+                            <li><a href="{{ path('tour') }}">Туры</a></li>
+                        {% endif %}
+                        
+                        {% if activePage == 'service'%}
+                            <li class="active"><a href="{{ path('service') }}">Услуги</a></li>
+                        {% else %}
+                            <li><a href="{{ path('service') }}">Услуги</a></li>
+                        {% endif %}
+                        
+                        {% if activePage == 'sublegal' %}
+                            <li class="active"><a href="{{ path('sublegal') }}">Субподрядчики</a></li>
+                        {% else %}
+                            <li><a href="{{ path('sublegal') }}">Субподрядчики</a></li>
+                        {% endif %}
+                        
+                        {% if activePage == 'request' %}
+                            <li class="active"><a href="{{ path('request') }}">Заявки</a></li>
+                        {% else %}
+                            <li><a href="{{ path('request') }}">Заявки</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                {% block body -%}
+                {% endblock%}
+            </div>
+            <script src="/web/admin/js/jquery.min.js"></script>
+            <script src="/web/admin/js/bootstrap.min.js"></script>
+        </body>
+    </html>
