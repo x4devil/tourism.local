@@ -48,9 +48,9 @@ class Tour {
     private $end;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="places", type="boolean", nullable=false)
+     * @ORM\Column(name="places", type="integer", nullable=false)
      */
     private $places;
 
@@ -245,7 +245,7 @@ class Tour {
     /**
      * Get places
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getPlaces() {
         return $this->places;

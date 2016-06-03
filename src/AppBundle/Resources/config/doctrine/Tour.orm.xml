@@ -13,7 +13,7 @@
     <field name="address" type="string" column="address" length="350" nullable="false"/>
     <field name="begin" type="date" column="begin" nullable="false"/>
     <field name="end" type="date" column="end" nullable="false"/>
-    <field name="places" type="boolean" column="places" nullable="false"/>
+    <field name="places" type="integer" column="places" nullable="false"/>
     <field name="empty" type="boolean" column="empty" nullable="false"/>
     <field name="price" type="integer" column="price" nullable="false"/>
     <field name="x" type="float" column="x" precision="10" scale="0" nullable="false"/>
