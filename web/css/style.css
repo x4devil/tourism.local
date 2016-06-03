@@ -1,0 +1,31 @@
+.th-action {
+    width: 10%;
+}
+.th-index {
+    width: 5%;
+}
+.th-class {
+    text-align: center;
+}
+.align-right {
+    text-align: right;
+}
+.panel-header {
+    height: 35px;
+}
+.panel-header .header-left-block {
+    display: inline-block;
+    float: left;
+}
+.panel-header .header-right-block {
+    float: right;
+}
+.tour{
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    padding: 10px 0px;
+    margin-bottom: 20px;
+}
+.pagination-center{
+    text-align: center;
+}
