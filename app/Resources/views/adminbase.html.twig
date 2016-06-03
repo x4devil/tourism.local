@@ -42,6 +42,12 @@
                             <li><a href="{{ path('service') }}">Услуги</a></li>
                         {% endif %}
                         
+                        {% if activePage == 'category' %}
+                            <li class="active"><a href="{{ path('category') }}">Категории</a></li>
+                        {% else %}
+                            <li><a href="{{ path('category') }}">Категории</a></li>
+                        {% endif %}
+                        
                         {% if activePage == 'sublegal' %}
                             <li class="active"><a href="{{ path('sublegal') }}">Субподрядчики</a></li>
                         {% else %}

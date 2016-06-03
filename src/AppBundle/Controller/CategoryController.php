@@ -17,7 +17,8 @@ use AppBundle\Form\CategoryType;
  */
 class CategoryController extends Controller
 {
-
+    
+    protected $activePage = 'category';
     /**
      * Lists all Category entities.
      *
@@ -33,6 +34,7 @@ class CategoryController extends Controller
 
         return array(
             'entities' => $entities,
+            'activePage' => $this->activePage,
         );
     }
     /**
@@ -59,6 +61,7 @@ class CategoryController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -76,7 +79,7 @@ class CategoryController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Добавить'));
 
         return $form;
     }
@@ -96,6 +99,7 @@ class CategoryController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -121,6 +125,7 @@ class CategoryController extends Controller
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -148,6 +153,7 @@ class CategoryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -165,7 +171,7 @@ class CategoryController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Сохранить'));
 
         return $form;
     }
@@ -200,6 +206,7 @@ class CategoryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
     /**
@@ -240,7 +247,7 @@ class CategoryController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('category_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Удалить'))
             ->getForm()
         ;
     }
