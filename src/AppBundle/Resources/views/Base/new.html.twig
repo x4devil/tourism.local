@@ -14,18 +14,12 @@
                 <span class="input-group-addon" id="name-group">{{ form_label(form.name) }}</span>
                 {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
             </div>
-            {{ form_end(form)}}
+            <div class="panel-actions">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('base') }}">Назад</a>
+                <div>
+                    {{ form_end(form)}}
+                </div>
         </div>
-    </div>
-    <h1>Base creation</h1>
-
     {{ form(form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('base') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
 {% endblock %}

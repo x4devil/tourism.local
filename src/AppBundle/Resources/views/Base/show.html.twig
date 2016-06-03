@@ -1,5 +1,26 @@
 {% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Просмотр базы отдыха
+{% endblock %}
+{% block body -%}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Просмотр базы отдыха</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">Название</span>
+                <input type="text" disabled value="{{entity.name}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="panel-actions">
+                <a class="btn btn-default" href="{{ path('base') }}">Назад</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#
 {% block body -%}
     <h1>Base</h1>
 
@@ -30,3 +51,4 @@
     <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
+#}

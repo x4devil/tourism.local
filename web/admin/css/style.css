@@ -20,3 +20,7 @@
 .panel-header .header-right-block {
     float: right;
 }
+.panel-actions {
+    text-align: right;
+    margin-top: 10px;
+}
