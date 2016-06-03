@@ -7,7 +7,55 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        
+  <body>
+        <div class="container">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Туризм</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% if activeNav is defined %}
+                            {% if activeNav == 1 %}
+                                <li class="active"><a href="/news">Новости</a></li>
+                            {% else %}
+                                <li><a href="/news">Новости</a></li>
+                            {% endif %}
+                            
+                            {% if activeNav == 2 %}
+                                <li class="active"><a href="/services/page1">Услуги</a></li>
+                            {% else %}
+                                <li><a href="/services/page1">Услуги</a></li>
+                            {% endif %}
+                            
+                            {% if activeNav == 3 %}
+                                <li class="active"><a href="/tours/page1">Туры</a></li>
+                            {% else %}
+                                <li><a href="/tours/page1">Туры</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="/news">Новости</a></li>
+                            <li><a href="/services/page1">Услуги</a></li>
+                            <li><a href="/tours/page1">Туры</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li class="active"><a href="/cart">Корзина</a></li>
+                    </ul>
+                  </div><!--/.nav-collapse -->
+                </div><!--/.container-fluid -->
+              </div>
+            
+            {% block body %}{% endblock %}
+    </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
