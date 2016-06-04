@@ -8,7 +8,17 @@
                    <h4>Категории</h4>
                    {% for category in categories %}
                    <ol class="list-unstyled">
-                     <li><a href="/category{{category.id}}">{{category.name}}</a></li>
+                       {% if category.id == categoryActive %}
+                            <li><a class="cursor-pointer boldest" val="{{category.id}}" 
+                                   onclick="window.location.href 
+                                   = '/tours/page1?categoryId=' + $(this).attr('val');" >
+                                {{category.name}}</a></li>
+                        {% else %}
+                            <li><a class="cursor-pointer" val="{{category.id}}" 
+                                   onclick="window.location.href 
+                                    = '/tours/page1?categoryId=' + $(this).attr('val');" >
+                                    {{category.name}}</a></li>
+                        {% endif %}
                    </ol>
                    {% endfor %}
                  </div>
@@ -34,10 +44,18 @@
                 {% if pageCount != 0%}
                     <ul class="pagination">
                         {% for page in pageCount..1 %}
-                            {% if loop.index == activePage %}
-                                <li  class="active"><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                            {% if categoryActive != null %}
+                                {% if loop.index == activePage %}
+                                    <li  class="active"><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
+                                {% else %}
+                                    <li><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
+                                {% endif %}
                             {% else %}
-                                <li><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% if loop.index == activePage %}
+                                    <li  class="active"><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% else %}
+                                    <li><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </ul>
