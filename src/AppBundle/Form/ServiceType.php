@@ -6,30 +6,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ServiceType extends AbstractType
-{
+class ServiceType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('price')
-            ->add('base')
-            ->add('x')
-            ->add('y')
-            ->add('sublegal')
+                ->add('name')
+                ->add('description')
+                ->add('price')
+                ->add('bases')
+                ->add('x')
+                ->add('y')
+                ->add('sublegal')
+                ->add('base')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Service'
         ));
@@ -38,8 +37,8 @@ class ServiceType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'appbundle_service';
     }
+
 }

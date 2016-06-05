@@ -10,12 +10,17 @@
     <field name="name" type="string" column="name" length="200" nullable="false"/>
     <field name="description" type="text" column="description" length="65535" nullable="false"/>
     <field name="price" type="integer" column="price" nullable="false"/>
-    <field name="base" type="boolean" column="base" nullable="true"/>
+    <field name="bases" type="boolean" column="bases" nullable="true"/>
     <field name="x" type="float" column="x" precision="10" scale="0" nullable="false"/>
     <field name="y" type="float" column="y" precision="10" scale="0" nullable="false"/>
-    <many-to-one field="sublegal" target-entity="Base">
+    <many-to-one field="sublegal" target-entity="Sublegal">
       <join-columns>
         <join-column name="id_sublegal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="base" target-entity="Base">
+      <join-columns>
+        <join-column name="id_base" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

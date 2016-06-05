@@ -36,9 +36,9 @@ class Service {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="base", type="boolean", nullable=true)
+     * @ORM\Column(name="bases", type="boolean", nullable=true)
      */
-    private $base;
+    private $bases;
 
     /**
      * @var float
@@ -66,12 +66,22 @@ class Service {
     /**
      * @var \AppBundle\Entity\Base
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Base")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sublegal")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_sublegal", referencedColumnName="id")
      * })
      */
     private $sublegal;
+    
+    /**
+     * @var \AppBundle\Entity\Base
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Base")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_base", referencedColumnName="id")
+     * })
+     */
+    private $base;
 
     /**
      * Set name
@@ -139,11 +149,11 @@ class Service {
     /**
      * Set base
      *
-     * @param boolean $base
+     * @param boolean $bases
      * @return Service
      */
-    public function setBase($base) {
-        $this->base = $base;
+    public function setBases($bases) {
+        $this->bases = $bases;
 
         return $this;
     }
@@ -153,8 +163,8 @@ class Service {
      *
      * @return boolean 
      */
-    public function getBase() {
-        return $this->base;
+    public function getBases() {
+        return $this->bases;
     }
 
     /**
@@ -211,11 +221,32 @@ class Service {
     /**
      * Set idSublegal
      *
-     * @param \AppBundle\Entity\Base $sublegal
+     * @param \AppBundle\Entity\Sublegal $sublegal
      * @return Service
      */
-    public function setSublegal(\AppBundle\Entity\Base $sublegal = null) {
+    public function setSublegal($sublegal = null) {
         $this->sublegal = $sublegal;
+
+        return $this;
+    }
+
+    /**
+     * Get idSublegal
+     *
+     * @return \AppBundle\Entity\Sublegal 
+     */
+    public function getSublegal() {
+        return $this->sublegal;
+    }
+    
+    /**
+     * Set base
+     *
+     * @param \AppBundle\Entity\Base $base
+     * @return Service
+     */
+    public function setBase($base = null) {
+        $this->base = $base;
 
         return $this;
     }
@@ -225,8 +256,8 @@ class Service {
      *
      * @return \AppBundle\Entity\Base 
      */
-    public function getSublegal() {
-        return $this->sublegal;
+    public function getBase() {
+        return $this->base;
     }
 
     function __toString() {

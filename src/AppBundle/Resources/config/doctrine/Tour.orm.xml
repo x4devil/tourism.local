@@ -9,9 +9,9 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="name" type="string" column="name" length="200" nullable="false"/>
-    <field name="desc_" type="text" column="desc" length="65535" nullable="false"/>
+    <field name="desc" type="text" column="desc_" length="65535" nullable="false"/>
     <field name="address" type="string" column="address" length="350" nullable="false"/>
-    <field name="begin_" type="date" column="begin" nullable="false"/>
+    <field name="begin" type="date" column="begin_" nullable="false"/>
     <field name="end" type="date" column="end" nullable="false"/>
     <field name="places" type="integer" column="places" nullable="false"/>
     <field name="empty" type="integer" column="empty" nullable="false"/>
