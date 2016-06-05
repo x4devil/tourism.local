@@ -114,14 +114,14 @@ class Tour {
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="idTour")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="tour")
      */
     protected $request;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
      * 
-     * @OneToMany(targetEntity="Pictures", mappedBy="tour")
+     * @ORM\OneToMany(targetEntity="Pictures", mappedBy="tour")
      */
     protected $pictures;
 
@@ -130,6 +130,7 @@ class Tour {
      */
     public function __construct() {
         $this->request = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
