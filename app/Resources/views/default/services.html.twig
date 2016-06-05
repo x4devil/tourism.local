@@ -2,13 +2,23 @@
 
 {% block body %}
     <div class="row">
-            {% if categories != NULL %}
+             {% if categories != NULL %}
             <div class="col-sm-4 blog-sidebar hidden-xs">
                  <div class="sidebar-module">
                    <h4>Категории</h4>
                    {% for category in categories %}
                    <ol class="list-unstyled">
-                     <li><a href="/category{{category.id}}">{{category.name}}</a></li>
+                       {% if category.id == categoryActive %}
+                            <li><a class="cursor-pointer boldest" val="{{category.id}}" 
+                                   onclick="window.location.href 
+                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                {{category.name}}</a></li>
+                        {% else %}
+                            <li><a class="cursor-pointer" val="{{category.id}}" 
+                                   onclick="window.location.href 
+                                    = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                    {{category.name}}</a></li>
+                        {% endif %}
                    </ol>
                    {% endfor %}
                  </div>
@@ -16,18 +26,20 @@
             {% endif %}
             <div class="col-sm-8 blog-main">
                 {% for service in services %}
-                <div class="tour clearfix">  
-                    <div class="col-sm-5 col-md-4">
-                        <img class="img-responsive" src="/web/img/1.jpg" alt=""/>
+                    <div class="tour clearfix"> 
+                        <div class="clearfix">
+                            <div class="col-sm-6">
+                                <h4>{{service.name}}</h4>
+                                <h5>Цена: {{service.price}} (чел.)</h5>
+                                <h5>Организатор: {{service.getSublegal().getFio()}}</h5>
+                                <h5>Описание: {{service.description}}</h5>
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+                        </div>
+                        
+                            <button type="button" class="btn btn-primary center-block">Добавить в корзину</button>
                     </div>
-                    <div class="col-sm-7 col-md-8">
-                        <h4>{{service.name}}</h4>
-                        <h5>{{service.price}}</h5>
-                        <h5>{{service.getSublegal()}}</h5>
-                        <h5>Адрес</h5>
-                        <a href="/service{{service.id}}">Подробнее</a>
-                    </div>
-                </div>
                 {% endfor %}
                 <div class="pagination-center">
                 {% if pageCount != 0%}

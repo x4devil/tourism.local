@@ -90,8 +90,14 @@ class DefaultController extends Controller
         
         if($categoryId != null){
             $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findBy(array('id' => $categoryId));
+            $category = $category[0]->getId();
         } else {
              $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
+             $buf = array();
+             foreach($category as $c) {
+                 $buf[] = $c->getId();
+             }
+             $category = $buf;
         }
         
         $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
@@ -139,22 +145,30 @@ class DefaultController extends Controller
     public function showTour($id)
     {
         $tour = $this->getDoctrine()->getRepository('AppBundle:Tour')->find($id);
-              
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
+        $query = $repository->createQueryBuilder('s');
+        $query = $query
+                ->where($query->expr()->eq('s.base', $tour->getBase()->getId()))
+                ->andWhere($query->expr()->isNull('s.sublegal'))
+                ->distinct()
+                ->getQuery();
+        $basesServices = $query->getResult(); 
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
+        $query = $repository->createQueryBuilder('s');
+        $query = $query
+                ->where($query->expr()->isNotNull('s.base'))
+                ->andWhere($query->expr()->isNotNull('s.sublegal'))
+                ->distinct()
+                ->getQuery();
+        $sublegalsServices = $query->getResult();
+        
         return $this->render('default/tour.html.twig', array(
-                            'tour' => $tour
-        ));
-    }
-    
-    /**
-     * @Route("/service{id}")
-     */
-    public function showService($id)
-    {
-        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->find($id);
-              
-        return $this->render('default/service.html.twig', array(
-                            'service' => $service
-        ));
+                            'tour' => $tour,
+                            'basesServices' => $basesServices,
+                            'sublegalsServices' => $sublegalsServices
+                ));
     }
     
     /**

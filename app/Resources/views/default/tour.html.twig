@@ -46,19 +46,26 @@
             <h5>Описание: {{tour.desc}}</h5>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5 class="boldest">Дополнительные услуги базы</h5>
-                    <div class="checkbox"><label>
-                        <input type="checkbox"> Покормить чушку (50руб.\чел.)
-                     </label></div>
-                    <div class="checkbox"><label>
-                        <input type="checkbox"> Покормить рыбку (1500руб.\чел.)
-                     </label></div>
+                    {% if basesServices != null %}
+                        <h5 class="boldest">Дополнительные услуги базы</h5>
+                            {% for basesService in basesServices %}
+                                <div class="checkbox"><label>
+                                    <input type="checkbox"> {{basesService.name}} 
+                                    ({{basesService.price}}руб.\чел.)</label>
+                                </div>
+                            {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="col-sm-6">
-                    <h5 class="boldest">Дополнительные услуги</h5>
-                    <div class="checkbox"><label>
-                        <input type="checkbox"> Кидать навоз (10000руб.\чел.)
-                     </label></div>
+                    {% if sublegalsServices != null %}
+                        <h5 class="boldest">Дополнительные услуги</h5>
+                            {% for sublegalsService in sublegalsServices %}
+                                <div class="checkbox"><label>
+                                    <input type="checkbox"> {{sublegalsService.name}} 
+                                    ({{sublegalsService.price}}руб.\чел.)</label>
+                                </div>
+                            {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <button type="button" class="btn btn-primary center-block">Добавить в корзину</button>
