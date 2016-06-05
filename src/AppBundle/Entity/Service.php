@@ -72,7 +72,7 @@ class Service {
      * })
      */
     private $sublegal;
-    
+
     /**
      * @var \AppBundle\Entity\Base
      *
@@ -82,6 +82,16 @@ class Service {
      * })
      */
     private $base;
+
+    /**
+     * @var \AppBundle\Entity\Category
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     * })
+     */
+    protected $category;
 
     /**
      * Set name
@@ -238,7 +248,7 @@ class Service {
     public function getSublegal() {
         return $this->sublegal;
     }
-    
+
     /**
      * Set base
      *
@@ -258,6 +268,27 @@ class Service {
      */
     public function getBase() {
         return $this->base;
+    }
+
+    /**
+     * Set idCategory
+     *
+     * @param \AppBundle\Entity\Category $category
+     * @return Tour
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null) {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get idCategory
+     *
+     * @return \AppBundle\Entity\Category 
+     */
+    public function getCategory() {
+        return $this->category;
     }
 
     function __toString() {

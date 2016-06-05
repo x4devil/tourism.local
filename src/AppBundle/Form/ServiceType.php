@@ -22,6 +22,7 @@ class ServiceType extends AbstractType {
                 ->add('y')
                 ->add('sublegal')
                 ->add('base')
+                ->add('category')
         ;
     }
 

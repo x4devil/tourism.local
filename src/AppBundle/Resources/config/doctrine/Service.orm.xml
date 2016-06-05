@@ -23,5 +23,10 @@
         <join-column name="id_base" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <many-to-one field="category" target-entity="Category">
+      <join-columns>
+        <join-column name="id_category" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

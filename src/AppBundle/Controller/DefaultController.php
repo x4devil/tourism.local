@@ -86,18 +86,26 @@ class DefaultController extends Controller
                 $offset = ($pageId-1) * $inPage;
         }
         
-        $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
         $categoryId = $request->get('categoryId');
         
         if($categoryId != null){
             $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findBy(array('id' => $categoryId));
+            $category = $category[0]->getId();
+        } else {
+             $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
+             $buf = array();
+             foreach($category as $c) {
+                 $buf[] = $c->getId();
+             }
+             $category = $buf;
         }
         
         $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
         $query = $repository->createQueryBuilder('s');
         $query = $query
-                ->where($query->expr()->in('s.category', $category))
-                ->andWhere($query->expr()->eq('s.base', false))
+                ->join('s.category', 'c')
+                ->where($query->expr()->in('c.id', $category))
+                ->andWhere($query->expr()->eq('s.bases', 0))
                 ->distinct()
                 ->getQuery();
         $services = $query->getResult();
@@ -115,7 +123,7 @@ class DefaultController extends Controller
         $query = $repository->createQueryBuilder('s');
         $query = $query
                 ->where($query->expr()->in('s.category', $category))
-                ->andWhere($query->expr()->eq('s.base', false))
+                ->andWhere($query->expr()->eq('s.bases', 0))
                 ->distinct()
                 ->setFirstResult($offset)
                 ->setMaxResults($inPage)
