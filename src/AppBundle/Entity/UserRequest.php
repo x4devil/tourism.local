@@ -30,7 +30,17 @@ class UserRequest {
      * })
      */
     private $user;
-    
+
+    /**
+     * @var \AppBundle\Entity\Tour
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tour", inversedBy="request")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tour", referencedColumnName="id")
+     * })
+     */
+    private $tour;
+
     /**
      * @var boolean
      *
@@ -67,20 +77,38 @@ class UserRequest {
     public function getUser() {
         return $this->user;
     }
-    
+
     /**
      * @return boolean
      */
     public function getPay() {
         return $this->pay;
     }
-    
+
     /**
      * 
      * @param type boolean
      */
     public function setPay($pay) {
         $this->pay = $pay;
+    }
+
+    /**
+     * 
+     * @return \AppBundle\Entity\Tour
+     */
+    public function getTour() {
+        return $this->tour;
+    }
+    
+    /**
+     * 
+     * @param type \AppBundle\Entity\Tour
+     */
+    public function setTour($tour) {
+        $this->tour = $tour;
+        
+        return $this;
     }
 
 }

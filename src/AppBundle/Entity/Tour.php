@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tour
  *
+ * @IgnoreAnnotation("fn")
  * @ORM\Table(name="tour", indexes={@ORM\Index(name="id_category", columns={"id_category"}), @ORM\Index(name="id_base", columns={"id_base"})})
  * @ORM\Entity
  */
@@ -22,7 +23,7 @@ class Tour {
     /**
      * @var string
      *
-     * @ORM\Column(name="desc", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="desc_", type="text", length=65535, nullable=false)
      */
     private $desc;
 
@@ -36,7 +37,7 @@ class Tour {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="begin", type="date", nullable=false)
+     * @ORM\Column(name="begin_", type="date", nullable=false)
      */
     private $begin;
 
@@ -114,7 +115,7 @@ class Tour {
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="tour")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UserRequest", mappedBy="tour")
      */
     protected $request;
     
@@ -416,7 +417,7 @@ class Tour {
     }
 
     /**
-     * Get idRequest
+     * Get request
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
@@ -437,7 +438,7 @@ class Tour {
     }
 
     /**
-     * Remove idRequest
+     * Remove picture
      *
      * @param \AppBundle\Entity\Pictures $pictures
      */
@@ -446,7 +447,7 @@ class Tour {
     }
 
     /**
-     * Get idRequest
+     * Get pictures
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
