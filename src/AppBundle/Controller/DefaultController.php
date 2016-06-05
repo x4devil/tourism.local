@@ -72,8 +72,10 @@ class DefaultController extends Controller
     }
     /**
      * @Route("/services/page{pageId}")
+     * Method("GET")
+     * @Template()
      */
-    public function servicesAction($pageId)
+    public function servicesAction($pageId, Request $request)
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
         
@@ -83,8 +85,24 @@ class DefaultController extends Controller
         } else {
                 $offset = ($pageId-1) * $inPage;
         }
-
-        $pageCount = count($services = $this->getDoctrine()->getRepository('AppBundle:Service')->findAll());
+        
+        $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
+        $categoryId = $request->get('categoryId');
+        
+        if($categoryId != null){
+            $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findBy(array('id' => $categoryId));
+        }
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
+        $query = $repository->createQueryBuilder('s');
+        $query = $query
+                ->where($query->expr()->in('s.category', $category))
+                ->andWhere($query->expr()->eq('s.base', false))
+                ->distinct()
+                ->getQuery();
+        $services = $query->getResult();
+        
+        $pageCount = count($services);
         if($pageCount != 0) {
                 if($pageCount % $inPage == 0){
                         $pageCount = (int)($pageCount / $inPage);
@@ -92,14 +110,25 @@ class DefaultController extends Controller
                         $pageCount = (int)($pageCount / $inPage + 1);
                 }
         }
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findBy(array(),array(),$inPage,$offset);
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
+        $query = $repository->createQueryBuilder('s');
+        $query = $query
+                ->where($query->expr()->in('s.category', $category))
+                ->andWhere($query->expr()->eq('s.base', false))
+                ->distinct()
+                ->setFirstResult($offset)
+                ->setMaxResults($inPage)
+                ->getQuery();
+        $services = $query->getResult();
         
         return $this->render('default/services.html.twig', array(
                             'categories' => $categories,
                             'services' => $services,
                             'activeNav' => 2,
                             'pageCount' => $pageCount,
-                            'activePage' => $pageId
+                            'activePage' => $pageId,
+                            'categoryActive' => $categoryId,
         ));
     }
     /**

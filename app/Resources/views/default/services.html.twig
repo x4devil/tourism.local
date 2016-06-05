@@ -33,10 +33,18 @@
                 {% if pageCount != 0%}
                     <ul class="pagination">
                         {% for page in pageCount..1 %}
-                            {% if loop.index == activePage %}
-                                <li><a href="/services/page{{loop.index}}" class="active">{{loop.index}}</a></li>
+                            {% if categoryActive != null %}
+                                {% if loop.index == activePage %}
+                                    <li  class="active"><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
+                                {% else %}
+                                    <li><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
+                                {% endif %}
                             {% else %}
-                                <li><a href="/services/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% if loop.index == activePage %}
+                                    <li  class="active"><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% else %}
+                                    <li><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </ul>
