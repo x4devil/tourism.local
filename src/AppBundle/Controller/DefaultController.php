@@ -115,7 +115,7 @@ class DefaultController extends Controller
         $query = $repository->createQueryBuilder('s');
         $query = $query
                 ->where($query->expr()->in('s.category', $category))
-                ->andWhere($query->expr()->eq('s.base', false))
+                ->andWhere($query->expr()->eq('s.bases', 0))
                 ->distinct()
                 ->setFirstResult($offset)
                 ->setMaxResults($inPage)
