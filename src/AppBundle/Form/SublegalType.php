@@ -15,8 +15,8 @@ class SublegalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fio')
-            ->add('base')
+            ->add('fio', null, array('label' => 'ФИО'))
+            ->add('base', null, array('label' => 'База отдыха'))
         ;
     }
     

@@ -1,15 +1,31 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
-{% block body -%}
-    <h1>Sublegal creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('sublegal') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block title %}
+    Добавление субподрядчика
 {% endblock %}
+{% block body -%}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Добавление субподрядчика</h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form)}}
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">{{ form_label(form.fio) }}</span>
+                {{ form_widget(form.fio, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
+            </div> 
+            <div class="input-group">
+                <span class="input-group-addon" id="base-group">{{ form_label(form.base) }}</span>
+                {{ form_widget(form.base, { 'attr': {'class': 'form-control', 'aria-describedby' : 'base-group', 'required': 'true'} }) }}
+            </div>
+            <div class="panel-actions">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('sublegal') }}">Назад</a>
+                <div>
+                    {{ form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
