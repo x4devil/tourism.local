@@ -117,6 +117,13 @@ class Tour {
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="idTour")
      */
     protected $request;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * 
+     * @OneToMany(targetEntity="Pictures", mappedBy="tour")
+     */
+    protected $pictures;
 
     /**
      * Constructor
@@ -389,10 +396,10 @@ class Tour {
     /**
      * Add idRequest
      *
-     * @param \AppBundle\Entity\User $request
+     * @param \AppBundle\Entity\UserRequest $request
      * @return Tour
      */
-    public function addRequest(\AppBundle\Entity\User $request) {
+    public function addRequest(\AppBundle\Entity\UserRequest $request) {
         $this->request[] = $request;
 
         return $this;
@@ -401,9 +408,9 @@ class Tour {
     /**
      * Remove idRequest
      *
-     * @param \AppBundle\Entity\User $request
+     * @param \AppBundle\Entity\UserRequest $request
      */
-    public function removeRequest(\AppBundle\Entity\User $request) {
+    public function removeRequest(\AppBundle\Entity\UserRequest $request) {
         $this->request->removeElement($request);
     }
 
@@ -414,6 +421,36 @@ class Tour {
      */
     public function getRequest() {
         return $this->request;
+    }
+    
+    /**
+     * Add picture
+     *
+     * @param \AppBundle\Entity\Pictures $pictures
+     * @return Tour
+     */
+    public function addPicture(\AppBundle\Entity\Pictures $pictures) {
+        $this->pictures[] = $pictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove idRequest
+     *
+     * @param \AppBundle\Entity\Pictures $pictures
+     */
+    public function removePicture(\AppBundle\Entity\Pictures $pictures) {
+        $this->pictures->removeElement($pictures);
+    }
+
+    /**
+     * Get idRequest
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPictures() {
+        return $this->pictures;
     }
 
     function __toString() {
