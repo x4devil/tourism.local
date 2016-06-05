@@ -90,8 +90,14 @@ class DefaultController extends Controller
         
         if($categoryId != null){
             $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findBy(array('id' => $categoryId));
+            $category = $category[0]->getId();
         } else {
              $category = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
+             $buf = array();
+             foreach($category as $c) {
+                 $buf[] = $c->getId();
+             }
+             $category = $buf;
         }
         
         $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
