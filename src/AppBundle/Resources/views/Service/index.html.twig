@@ -1,51 +1,57 @@
-{% extends '::base.html.twig' %}
-
+{% extends '::adminbase.html.twig' %}
+{% block title %}
+    Услуги
+{% endblock %}
 {% block body -%}
-    <h1>Service list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Base</th>
-                <th>X</th>
-                <th>Y</th>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('service_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.price }}</td>
-                <td>{{ entity.base }}</td>
-                <td>{{ entity.x }}</td>
-                <td>{{ entity.y }}</td>
-                <td>{{ entity.id }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('service_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('service_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('service_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <div class="header-left-block">
+                <h3 class="panel-title">Список услуг</h3>
+            </div>
+            <div class="header-right-block">
+                <a href="{{ path('service_new') }}">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Добавить
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="th-index th-class">#</th>
+                    <th class="th-class">Название</th>
+                    <th class="th-class">База отдыха</th>
+                    <th class="th-class">Субподрядчик</th>
+                    <th class="th-class">Услуга для базы</th>
+                    <th class="th-class">Цена</th>
+                    <th class="th-action th-class">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ path('service_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                        <td>{{ entity.base }}</td>
+                        <td>{{ entity.sublegal }}</td>
+                        <td>
+                            {% if entity.bases == 1 %}
+                                Да
+                            {% else %}
+                                Нет
+                            {% endif %}
+                        </td>
+                        <td>{{ entity.price }}</td>
+                        <td>
+                            <a href="{{ path('service_edit', { 'id': entity.id }) }}">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                Изменить
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
