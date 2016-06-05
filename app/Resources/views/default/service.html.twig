@@ -15,18 +15,19 @@
                             {% endfor %}
                     </ol>
                 {% endif %}
-
-                {% for p in service.getPictures() %}
-                    {% if loop.index == 1 %}
-                        <div class="item active">
-                            <img src="/web/img/{{p.getFile()}}" alt=".">
-                        </div>
-                    {% else %}
-                        <div class="item">
-                            <img src="/web/img/{{p.getFile()}}" alt=".">
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                <div class="carousel-inner">
+                    {% for p in service.getPictures() %}
+                        {% if loop.index == 1 %}
+                            <div class="item active">
+                                <img src="/web/img/{{p.getFile()}}" alt=".">
+                            </div>
+                        {% else %}
+                            <div class="item">
+                                <img src="/web/img/{{p.getFile()}}" alt=".">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
                 {% if service.getPictures().count() > 1 %}
                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                       <span class="glyphicon glyphicon-chevron-left"></span>
