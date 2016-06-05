@@ -28,6 +28,6 @@
         <join-column name="id_base" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-many field="request" target-entity="User" mapped-by="idTour"/>
+    <many-to-many field="request" target-entity="UserRequest" mapped-by="tour"/>
   </entity>
 </doctrine-mapping>
