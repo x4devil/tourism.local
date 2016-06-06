@@ -15,9 +15,30 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:News');
+        $query = $repository->createQueryBuilder('n');
+        $query = $query
+                ->distinct()
+                ->orderBy('n.id', 'DESC')
+                ->setMaxResults(2)
+                ->getQuery();
+        $news = $query->getResult();
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Service');
+        $query = $repository->createQueryBuilder('s');
+        $query = $query
+                ->distinct()
+                ->where($query->expr()->eq('s.bases', 0))
+                ->orderBy('s.id', 'DESC')
+                ->setMaxResults(4)
+                ->getQuery();
+        $services = $query->getResult();
         
         return $this->render('default/index.html.twig', array(
-                            'categories' => $categories
+                            'categories' => $categories,
+                            'news' => $news, 
+                            'services' => $services
         ));
     }
     
@@ -30,7 +51,7 @@ class DefaultController extends Controller
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
         
-        $inPage = 2;
+        $inPage = 5;
         if($pageId == 1){
                 $offset = 0;
         } else {
@@ -79,7 +100,7 @@ class DefaultController extends Controller
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
         
-        $inPage = 2;
+        $inPage = 5;
         if($pageId == 1){
                 $offset = 0;
         } else {
@@ -178,5 +199,48 @@ class DefaultController extends Controller
     {
               
         return $this->render('default/cart.html.twig', array());
+    }
+    
+    /**
+     * @Route("/news/page{pageId}")
+     */
+    public function showNews($pageId)
+    {
+        $news =  $this->getDoctrine()->getRepository('AppBundle:News')->findAll();
+        
+        $inPage = 5;
+        if($pageId == 1){
+                $offset = 0;
+        } else {
+                $offset = ($pageId-1) * $inPage;
+        }
+        
+        $pageCount = count($news);
+        
+        if($pageCount != 0) {
+                if($pageCount % $inPage == 0){
+                        $pageCount = (int)($pageCount / $inPage);
+                } else {
+                        $pageCount = (int)($pageCount / $inPage + 1);
+                }
+        }
+        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:News');
+        $query = $repository->createQueryBuilder('n');
+        $query = $query
+                ->distinct()
+                ->orderBy('n.id', 'DESC')
+                ->setFirstResult($offset)
+                ->setMaxResults($inPage)
+                ->getQuery();
+        $news = $query->getResult();
+        
+        return $this->render('default/news.html.twig', array(
+                            'activeNav' => 1,
+                            'news' => $news,
+                            'pageCount' => $pageCount,
+                            'activePage' => $pageId
+            
+        ));
     }
 }

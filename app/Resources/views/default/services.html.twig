@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row">
              {% if categories != NULL %}
-            <div class="col-sm-4 blog-sidebar hidden-xs">
+            <div class="col-sm-2  col-lg-4 blog-sidebar hidden-xs">
                  <div class="sidebar-module">
                    <h4>Категории</h4>
                    {% for category in categories %}
@@ -24,20 +24,31 @@
                  </div>
              </div>
             {% endif %}
-            <div class="col-sm-8 blog-main">
+            <div class="col-sm-10 col-lg-8  blog-main">
                 {% for service in services %}
                     <div class="tour clearfix"> 
                         <div class="clearfix">
                             <div class="col-sm-6">
                                 <h4>{{service.name}}</h4>
-                                <h5>Цена: {{service.price}} (чел.)</h5>
+                                <h5 id="priceForOne" price="{{service.price}}">Цена: {{service.price}} (чел.)</h5>
                                 <h5>Организатор: {{service.getSublegal().getFio()}}</h5>
                                 <h5>Описание: {{service.description}}</h5>
+                                
+                                <p>
+                                    Укажите количество человек
+                                    <select>
+                                        {% for i in 1..10 %}
+                                            <option>{{i}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </p>
+                                
+                                <h4 class="price">Общая цена: {{service.price}} рублей.</h4>
                             </div>
                             <div class="col-sm-6">
                             </div>
                         </div>
-                        
+                            
                             <button type="button" class="btn btn-primary center-block">Добавить в корзину</button>
                     </div>
                 {% endfor %}
@@ -78,4 +89,5 @@
 {% block javascripts %}
     <script src="/web/admin/js/jquery.min.js"></script>
     <script src="/web/admin/js/bootstrap.min.js"></script>
+    <script src="/web/admin/js/calc2.js"></script>
 {% endblock %}

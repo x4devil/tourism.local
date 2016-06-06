@@ -27,7 +27,7 @@
                             {% if activeNav == 1 %}
                                 <li class="active"><a href="/news">Новости</a></li>
                             {% else %}
-                                <li><a href="/news">Новости</a></li>
+                                <li><a href="/news/page1">Новости</a></li>
                             {% endif %}
                             
                             {% if activeNav == 2 %}
@@ -42,13 +42,14 @@
                                 <li><a href="/tours/page1">Туры</a></li>
                             {% endif %}
                         {% else %}
-                            <li><a href="/news">Новости</a></li>
+                            <li><a href="/news/page1">Новости</a></li>
                             <li><a href="/services/page1">Услуги</a></li>
                             <li><a href="/tours/page1">Туры</a></li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                      <li class="active"><a href="/cart">Корзина</a></li>
+                        <li><a href="/login"><span class="glyphicon glyphicon-user"></span></a></li>
+                        <li class="active"><a href="/cart">Корзина</a></li>
                     </ul>
                   </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->

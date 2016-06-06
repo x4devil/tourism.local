@@ -1,9 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        
-    </div>
+    {% if news != null %}
+        <h4>Свежие новости :</h4>
+        {% for new in news %}
+            <div class="tour">
+                <div class="row">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9">
+                        <h4>{{new.name}}</h4>
+                        <p>{{new.description}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if services != null %}
+        <h4>Свежие услуги :</h4>
+        <div class="row">
+            {% for service in services %}
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="tour clearfix"> 
+                        <div class="clearfix">
+                            <div class="col-md-6">
+                                <h4>{{service.name}}</h4>
+                                <h5 id="priceForOne" price="{{service.price}}">Цена: {{service.price}} (чел.)</h5>
+                                <h5>Организатор: {{service.getSublegal().getFio()}}</h5>
+                                <h5>Описание: {{service.description}}</h5>
+
+                                <p>
+                                    Укажите количество человек
+                                    <select>
+                                        {% for i in 1..10 %}
+                                            <option>{{i}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </p>
+
+                                <h4 class="price">Общая цена: {{service.price}} рублей.</h4>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+
+                            <button type="button" class="btn btn-primary center-block">Добавить в корзину</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
 {% endblock %}
 
 {% block title %}
@@ -18,4 +67,5 @@
 {% block javascripts %}
     <script src="/web/admin/js/jquery.min.js"></script>
     <script src="/web/admin/js/bootstrap.min.js"></script>
+    <script src="/web/admin/js/calc2.js"></script>
 {% endblock %}

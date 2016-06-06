@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="clearfix">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>#</td>
+            <td>Название</td>
+            <td>Тип</td>
+            <td>Категория</td>
+            <td>Цена(руб.)</td>
+            <td>Действие</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Тур хуюр</td>
+            <td>Тур</td>
+            <td>лесной</td>
+            <td class="price">5000</td>
+            <td>
+                <a href="/base/1/edit">
+                    Удалить
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Весенний половодье</td>
+            <td>Тур</td>
+            <td>речной</td>
+            <td class="price">4500</td>
+            <td>
+                <a href="/base/1/edit">
+                    Удалить
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Рыбалка</td>
+            <td>Услуга</td>
+            <td>пизда</td>
+            <td class="price">4500</td>
+            <td>
+                <a href="/base/1/edit">
+                    Удалить
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="total" colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+        <button type="button" class="btn btn-primary pull-right">Оформить заказ</button>
+    </div>
+{% endblock %}
+
+{% block title %}
+    Корзина
+{% endblock %}
+
+{% block stylesheets %}
+    <link href="/web/admin/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/web/css/style.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/web/admin/js/jquery.min.js"></script>
+    <script src="/web/admin/js/bootstrap.min.js"></script>
+    <script src="/web/admin/js/calc3.js"></script>
+{% endblock %}
