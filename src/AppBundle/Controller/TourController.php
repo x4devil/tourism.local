@@ -15,8 +15,9 @@ use AppBundle\Form\TourType;
  *
  * @Route("/tour")
  */
-class TourController extends Controller
-{
+class TourController extends Controller {
+
+    protected $activePage = 'tour';
 
     /**
      * Lists all Tour entities.
@@ -25,16 +26,17 @@ class TourController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Tour')->findAll();
 
         return array(
             'entities' => $entities,
+            'activePage' => $this->activePage,
         );
     }
+
     /**
      * Creates a new Tour entity.
      *
@@ -42,8 +44,7 @@ class TourController extends Controller
      * @Method("POST")
      * @Template("AppBundle:Tour:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Tour();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -53,12 +54,13 @@ class TourController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tour_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('tour_edit', array('id' => $entity->getId())));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -69,14 +71,13 @@ class TourController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Tour $entity)
-    {
+    private function createCreateForm(Tour $entity) {
         $form = $this->createForm(new TourType(), $entity, array(
             'action' => $this->generateUrl('tour_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Добавить'));
 
         return $form;
     }
@@ -88,14 +89,14 @@ class TourController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Tour();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -106,8 +107,7 @@ class TourController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Tour')->find($id);
@@ -119,8 +119,9 @@ class TourController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -131,8 +132,7 @@ class TourController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Tour')->find($id);
@@ -145,30 +145,31 @@ class TourController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
     /**
-    * Creates a form to edit a Tour entity.
-    *
-    * @param Tour $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Tour $entity)
-    {
+     * Creates a form to edit a Tour entity.
+     *
+     * @param Tour $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Tour $entity) {
         $form = $this->createForm(new TourType(), $entity, array(
             'action' => $this->generateUrl('tour_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Сохранить'));
 
         return $form;
     }
+
     /**
      * Edits an existing Tour entity.
      *
@@ -176,8 +177,7 @@ class TourController extends Controller
      * @Method("PUT")
      * @Template("AppBundle:Tour:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Tour')->find($id);
@@ -197,19 +197,20 @@ class TourController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
+
     /**
      * Deletes a Tour entity.
      *
      * @Route("/{id}", name="tour_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -235,13 +236,13 @@ class TourController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tour_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('tour_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Удалить'))
+                        ->getForm()
         ;
     }
+
 }

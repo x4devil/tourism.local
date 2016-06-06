@@ -1,15 +1,65 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Добавление тура
+{% endblock %}
 {% block body -%}
-    <h1>Tour creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('tour') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Добавление тура</h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form)}}
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">{{ form_label(form.name) }}</span>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description-group">{{ form_label(form.desc) }}</span>
+                {{ form_widget(form.desc, { 'attr': {'class': 'form-control', 'aria-describedby' : 'description-group', 'placeholder': 'Описание'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="address-group">{{ form_label(form.address) }}</span>
+                {{ form_widget(form.address, { 'attr': {'class': 'form-control', 'aria-describedby' : 'address-group', 'placeholder': 'Адрес'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="begin-group">{{ form_label(form.begin) }}</span>
+                {{ form_widget(form.begin, { 'attr': {'class': 'form-control', 'aria-describedby' : 'begin-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="end-group">{{ form_label(form.end) }}</span>
+                {{ form_widget(form.end, { 'attr': {'class': 'form-control', 'aria-describedby' : 'end-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="places-group">{{ form_label(form.places) }}</span>
+                {{ form_widget(form.places, { 'attr': {'class': 'form-control', 'aria-describedby' : 'places-group', 'placeholder': 'Количество мест'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(form.price) }}</span>
+                {{ form_widget(form.price, { 'attr': {'class': 'form-control', 'aria-describedby' : 'price-group', 'placeholder': 'Стоимость'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="x-group">{{ form_label(form.x) }}</span>
+                {{ form_widget(form.x, { 'attr': {'class': 'form-control', 'aria-describedby' : 'x-group', 'placeholder': 'X'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="y-group">{{ form_label(form.y) }}</span>
+                {{ form_widget(form.y, { 'attr': {'class': 'form-control', 'aria-describedby' : 'y-group', 'placeholder': 'Y'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(form.category) }}</span>
+                {{ form_widget(form.category, { 'attr': {'class': 'form-control', 'aria-describedby' : 'category-group', 'required': 'true'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(form.base) }}</span>
+                {{ form_widget(form.base, { 'attr': {'class': 'form-control', 'aria-describedby' : 'base-group', 'required': 'true'} }) }}
+            </div>
+            
+            <div class="panel-actions">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('tour') }}">Назад</a>
+            </div>
+            {{ form_end(form)}}
+        </div>
+    </div>
 {% endblock %}
