@@ -54,7 +54,7 @@
                 <span class="input-group-addon" id="price-group">{{ form_label(edit_form.base) }}</span>
                 {{ form_widget(edit_form.base, { 'attr': {'class': 'form-control', 'aria-describedby' : 'base-group', 'required': 'true'} }) }}
             </div>
-            
+
             <div class="panel-actions">
                 {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
                 <a class="btn btn-default" href="{{ path('tour') }}">Назад</a>
@@ -64,6 +64,43 @@
             {{ form_start(delete_form) }}
             {{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'} }) }}
             {{ form_end(delete_form) }}
+        </div>
+    </div>
+    <div id="#pictures" class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Изображения</h3>
+        </div>
+        <div class="panel-body">
+            <form class="panel panel-default" action="{{path('picture_upload', { 'id': entity.getId() })}}" method="post" {{ form_enctype(upload_form) }} enctype="multipart/form-data">
+                <div class="panel-heading panel-header">
+                    <h3 class="panel-title">Загрузить изображение</h3>
+                </div>
+                <div class="panel-body">
+                    <input name="_method" value="PUT" type="hidden"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="file-group">Файл</span>
+                        {{ form_widget(upload_form.files, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="panel-actions">
+                        {{ form_widget(upload_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                    </div>
+                </div>
+            </form>
+
+            <div class="panel panel-default">
+                <div class="panel-heading panel-header">
+                    <h3 class="panel-title">Загруженные изображения</h3>
+                </div>
+                <div class="panel-body">
+                    {% for picture in entity.getPictures() %}
+                        <form action="{{path('picture_delete', { 'id': picture.getId() })}}" method="post">
+                            <input name="_method" value="DELETE" type="hidden"/>
+                            <img src="/web/img/{{ picture.getFile() }}" width="150px" heigh="150px"/>
+                            <button type="submit">Удалить</button>
+                        </form>
+                    {% endfor%}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

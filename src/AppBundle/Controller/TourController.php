@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tour;
+use AppBundle\Entity\Pictures;
 use AppBundle\Form\TourType;
 
 /**
@@ -143,11 +144,13 @@ class TourController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $uploadForm = $this->createUploadForm($id);
 
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'upload_form' => $uploadForm->createView(),
             'activePage' => $this->activePage,
         );
     }
@@ -230,6 +233,59 @@ class TourController extends Controller {
     }
 
     /**
+     *
+     * @Route("/{id}/upload", name="picture_upload")
+     * @Method("PUT")
+     * @Template("AppBundle:Tour:edit.html.twig")
+     */
+    public function uploadAction(Request $request, $id) {
+        $files = $request->files;
+        if ($files != NULL) {
+            $em = $this->getDoctrine()->getManager();
+            $tour = $em->getRepository('AppBundle:Tour')->find($id);
+            
+            $path = __DIR__ . '../../../../web/img/';
+
+            foreach ($files as $file => $val) {
+                foreach ($val as $v) {
+                    //md5("текущее время"_"id тура").jpg
+                    $now = \DateTime::createFromFormat('U.u', microtime(true));
+                    $name = md5($now->format('Y-m-d H:i:s.u').'_'.$id).'.jpg';
+                    $v->move($path, $name);
+                    
+                    $picture = new Pictures();
+                    $picture->setTour($tour);
+                    $picture->setFile($name);
+                    $em->persist($picture);
+                    $em->flush();
+                }
+            }
+        }
+        return $this->redirect($this->generateUrl('tour_edit', array('id' => $id)).'#pictures');
+    }
+    
+    /**
+     *
+     * @Route("/{id}/upload", name="picture_delete")
+     * @Method("DELETE")
+     */
+    public function unloadAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $picture = $em->getRepository('AppBundle:Pictures')->find($id);
+        if (!$picture) {
+            return $this->redirect($this->generateUrl('tour'));
+        }
+        
+        $tourId = $picture->getTour()->getId();
+
+        $em->remove($picture);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('tour_edit', array('id' => $tourId)).'#pictures');
+    }
+
+    /**
      * Creates a form to delete a Tour entity by id.
      *
      * @param mixed $id The entity id
@@ -241,6 +297,25 @@ class TourController extends Controller {
                         ->setAction($this->generateUrl('tour_delete', array('id' => $id)))
                         ->setMethod('DELETE')
                         ->add('submit', 'submit', array('label' => 'Удалить'))
+                        ->getForm()
+        ;
+    }
+
+    /**
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createUploadForm($id) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('picture_upload', array('id' => $id)))
+                        ->setMethod('PUT')
+                        ->add('files', 'file', array(
+                            'label' => 'Файлы',
+                            'attr' => array(
+                                'required' => 'true',
+                                'multiple' => 'multiple',
+                                'name' => 'images[]',)))
+                        ->add('submit', 'submit', array('label' => 'Загрузить', 'attr' => array('class' => 'btn')))
                         ->getForm()
         ;
     }
