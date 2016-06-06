@@ -87,19 +87,18 @@
                 </div>
             </form>
 
-            <div class="panel panel-default">
-                <div class="panel-heading panel-header">
-                    <h3 class="panel-title">Загруженные изображения</h3>
-                </div>
-                <div class="panel-body">
-                    {% for picture in entity.getPictures() %}
-                        <form action="{{path('picture_delete', { 'id': picture.getId() })}}" method="post">
+            <div class="row">
+                {% for picture in entity.getPictures() %}
+                    <div class="col-sm-6 col-md-4">
+                        <form class="thumbnail" action="{{path('picture_delete', { 'id': picture.getId() })}}" method="post">
                             <input name="_method" value="DELETE" type="hidden"/>
-                            <img src="/web/img/{{ picture.getFile() }}" width="150px" heigh="150px"/>
-                            <button type="submit">Удалить</button>
+                            <img src="{{ picture.getFile() }}" width="100%" style="height:250px"/>
+                            <div class="caption" style="text-align: center;">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </div>
                         </form>
-                    {% endfor%}
-                </div>
+                    </div>
+                {% endfor%}
             </div>
         </div>
     </div>

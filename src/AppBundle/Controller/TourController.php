@@ -250,7 +250,7 @@ class TourController extends Controller {
                 foreach ($val as $v) {
                     //md5("текущее время"_"id тура").jpg
                     $now = \DateTime::createFromFormat('U.u', microtime(true));
-                    $name = md5($now->format('Y-m-d H:i:s.u').'_'.$id).'.jpg';
+                    $name = '/web/img/'.md5($now->format('Y-m-d H:i:s.u').'_'.$id).'.jpg';
                     $v->move($path, $name);
                     
                     $picture = new Pictures();
