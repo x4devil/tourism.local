@@ -17,6 +17,7 @@ use AppBundle\Form\ServiceType;
  */
 class ServiceController extends Controller
 {
+    protected $activePage = 'service';
 
     /**
      * Lists all Service entities.
@@ -33,6 +34,7 @@ class ServiceController extends Controller
 
         return array(
             'entities' => $entities,
+            'activePage' => $this->activePage,
         );
     }
     /**
@@ -76,7 +78,7 @@ class ServiceController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Добавить'));
 
         return $form;
     }
@@ -96,6 +98,7 @@ class ServiceController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -121,6 +124,7 @@ class ServiceController extends Controller
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -148,6 +152,7 @@ class ServiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
 
@@ -165,7 +170,7 @@ class ServiceController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Сохранить'));
 
         return $form;
     }
@@ -200,6 +205,7 @@ class ServiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'activePage' => $this->activePage,
         );
     }
     /**
@@ -240,7 +246,7 @@ class ServiceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('service_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Удалить'))
             ->getForm()
         ;
     }

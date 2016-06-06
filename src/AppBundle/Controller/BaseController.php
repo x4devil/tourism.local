@@ -62,7 +62,7 @@ class BaseController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-           'activePage' => $this->activePage,
+            'activePage' => $this->activePage,
         );
     }
 

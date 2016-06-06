@@ -132,6 +132,10 @@ class Tour {
     public function __construct() {
         $this->request = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->begin = new \DateTime();
+        $this->end = new \DateTime();
+        $this->end->add(new \DateInterval('P1D'));
+        $this->empty = 0;
     }
 
     /**

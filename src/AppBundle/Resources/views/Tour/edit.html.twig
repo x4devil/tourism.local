@@ -1,16 +1,105 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Редактирование тура
+{% endblock %}
 {% block body -%}
-    <h1>Tour edit</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Редактирование тура</h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(edit_form)}}
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">{{ form_label(edit_form.name) }}</span>
+                {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description-group">{{ form_label(edit_form.desc) }}</span>
+                {{ form_widget(edit_form.desc, { 'attr': {'class': 'form-control', 'aria-describedby' : 'description-group', 'placeholder': 'Описание'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="address-group">{{ form_label(edit_form.address) }}</span>
+                {{ form_widget(edit_form.address, { 'attr': {'class': 'form-control', 'aria-describedby' : 'address-group', 'placeholder': 'Адрес'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="begin-group">{{ form_label(edit_form.begin) }}</span>
+                {{ form_widget(edit_form.begin, { 'attr': {'class': 'form-control', 'aria-describedby' : 'begin-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="end-group">{{ form_label(edit_form.end) }}</span>
+                {{ form_widget(edit_form.end, { 'attr': {'class': 'form-control', 'aria-describedby' : 'end-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="places-group">{{ form_label(edit_form.places) }}</span>
+                {{ form_widget(edit_form.places, { 'attr': {'class': 'form-control', 'aria-describedby' : 'places-group', 'placeholder': 'Количество мест'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(edit_form.price) }}</span>
+                {{ form_widget(edit_form.price, { 'attr': {'class': 'form-control', 'aria-describedby' : 'price-group', 'placeholder': 'Стоимость'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="x-group">{{ form_label(edit_form.x) }}</span>
+                {{ form_widget(edit_form.x, { 'attr': {'class': 'form-control', 'aria-describedby' : 'x-group', 'placeholder': 'X'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="y-group">{{ form_label(edit_form.y) }}</span>
+                {{ form_widget(edit_form.y, { 'attr': {'class': 'form-control', 'aria-describedby' : 'y-group', 'placeholder': 'Y'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(edit_form.category) }}</span>
+                {{ form_widget(edit_form.category, { 'attr': {'class': 'form-control', 'aria-describedby' : 'category-group', 'required': 'true'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(edit_form.base) }}</span>
+                {{ form_widget(edit_form.base, { 'attr': {'class': 'form-control', 'aria-describedby' : 'base-group', 'required': 'true'} }) }}
+            </div>
 
-    {{ form(edit_form) }}
+            <div class="panel-actions">
+                {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('tour') }}">Назад</a>
+            </div>
+            {{ form_end(edit_form)}}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('tour') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            {{ form_start(delete_form) }}
+            {{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'} }) }}
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+    <div id="#pictures" class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Изображения</h3>
+        </div>
+        <div class="panel-body">
+            <form class="panel panel-default" action="{{path('picture_upload', { 'id': entity.getId() })}}" method="post" {{ form_enctype(upload_form) }} enctype="multipart/form-data">
+                <div class="panel-heading panel-header">
+                    <h3 class="panel-title">Загрузить изображение</h3>
+                </div>
+                <div class="panel-body">
+                    <input name="_method" value="PUT" type="hidden"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="file-group">Файл</span>
+                        {{ form_widget(upload_form.files, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="panel-actions">
+                        {{ form_widget(upload_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                {% for picture in entity.getPictures() %}
+                    <div class="col-sm-6 col-md-4">
+                        <form class="thumbnail" action="{{path('picture_delete', { 'id': picture.getId() })}}" method="post">
+                            <input name="_method" value="DELETE" type="hidden"/>
+                            <img src="{{ picture.getFile() }}" width="100%" style="height:250px"/>
+                            <div class="caption" style="text-align: center;">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
 {% endblock %}

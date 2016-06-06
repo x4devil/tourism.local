@@ -43,6 +43,9 @@ class User extends BaseUser {
 
     public function __construct() {
         parent::__construct();
+        $this->name = "";
+        $this->lastname = "";
+        $this->surname = "";
         // your own logic
     }
 
@@ -118,4 +121,77 @@ class User extends BaseUser {
         return $this->surname;
     }
 
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get locked
+     *
+     * @return boolean 
+     */
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    /**
+     * Get expired
+     *
+     * @return boolean 
+     */
+    public function getExpired()
+    {
+        return $this->expired;
+    }
+
+    /**
+     * Get expiresAt
+     *
+     * @return \DateTime 
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+
+    /**
+     * Get credentialsExpired
+     *
+     * @return boolean 
+     */
+    public function getCredentialsExpired()
+    {
+        return $this->credentialsExpired;
+    }
+
+    /**
+     * Get credentialsExpireAt
+     *
+     * @return \DateTime 
+     */
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
 }

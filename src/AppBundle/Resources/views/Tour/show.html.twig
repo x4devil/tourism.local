@@ -1,68 +1,63 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Просмотр тура
+{% endblock %}
 {% block body -%}
-    <h1>Tour</h1>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Desc</th>
-                <td>{{ entity.desc }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ entity.address }}</td>
-            </tr>
-            <tr>
-                <th>Begin</th>
-                <td>{{ entity.begin|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>End</th>
-                <td>{{ entity.end|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Places</th>
-                <td>{{ entity.places }}</td>
-            </tr>
-            <tr>
-                <th>Empty</th>
-                <td>{{ entity.empty }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ entity.price }}</td>
-            </tr>
-            <tr>
-                <th>X</th>
-                <td>{{ entity.x }}</td>
-            </tr>
-            <tr>
-                <th>Y</th>
-                <td>{{ entity.y }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('tour') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Просмотр тура</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">Название</span>
+                <input type="text" disabled value="{{entity.name}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="desc-group">Описание</span>
+                <input type="text" disabled value="{{entity.desc}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="address-group">Адресс</span>
+                <input type="text" disabled value="{{entity.address}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="begin-group">Дата начала</span>
+                <input type="text" disabled value="{{entity.begin | date('d-m-Y')}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="end-group">Дата окончания</span>
+                <input type="text" disabled value="{{entity.end | date('d-m-Y')}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="places-group">Количество мест</span>
+                <input type="text" disabled value="{{entity.places}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">Стоимость</span>
+                <input type="text" disabled value="{{entity.price}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="x-group">X</span>
+                <input type="text" disabled value="{{entity.x}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="y-group">Y</span>
+                <input type="text" disabled value="{{entity.y}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="category-group">Категория</span>
+                <input type="text" disabled value="{{entity.category}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="base-group">База отдыха</span>
+                <input type="text" disabled value="{{entity.base}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            
+            
+            <div class="panel-actions">
+                <a class="btn btn-default" href="{{ path('tour') }}">Назад</a>
+            </div>
+        </div>
+    </ul>
 {% endblock %}

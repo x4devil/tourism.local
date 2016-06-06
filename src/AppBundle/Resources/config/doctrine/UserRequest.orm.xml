@@ -13,10 +13,7 @@
         <join-column name="id_user" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="tour" target-entity="Tour" inversedBy="request">
-      <join-columns>
-        <join-column name="id_tour" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
+    <many-to-many target-entity="Tour" field="tours"/>
+    <many-to-many target-entity="Service" field="services"/>
   </entity>
 </doctrine-mapping>

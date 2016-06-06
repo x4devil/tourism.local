@@ -5,110 +5,167 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Request
+ * UserRequest
  *
- * @ORM\Table(name="request", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+ * @IgnoreAnnotation("fn")
+ * @ORM\Table(name="request")
  * @ORM\Entity
  */
-class UserRequest {
+class UserRequest
+{
+    /**
+     * @var boolean
+     */
+    private $pay;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * })
      */
     private $user;
 
     /**
-     * @var \AppBundle\Entity\Tour
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tour", inversedBy="request")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_tour", referencedColumnName="id")
-     * })
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $tour;
+    private $tours;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="pay", type="boolean", nullable=false)
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $pay;
+    private $services;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tours = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set pay
+     *
+     * @param boolean $pay
+     * @return UserRequest
+     */
+    public function setPay($pay)
+    {
+        $this->pay = $pay;
+
+        return $this;
+    }
+
+    /**
+     * Get pay
+     *
+     * @return boolean 
+     */
+    public function getPay()
+    {
+        return $this->pay;
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * Set idUser
+     * Set user
      *
      * @param \AppBundle\Entity\User $user
      * @return UserRequest
      */
-    public function setUser(\AppBundle\Entity\User $user = null) {
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
         $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get idUser
+     * Get user
      *
      * @return \AppBundle\Entity\User 
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
-     * @return boolean
+     * Add tours
+     *
+     * @param \AppBundle\Entity\Tour $tours
+     * @return UserRequest
      */
-    public function getPay() {
-        return $this->pay;
-    }
+    public function addTour(\AppBundle\Entity\Tour $tours)
+    {
+        $this->tours[] = $tours;
 
-    /**
-     * 
-     * @param type boolean
-     */
-    public function setPay($pay) {
-        $this->pay = $pay;
-    }
-
-    /**
-     * 
-     * @return \AppBundle\Entity\Tour
-     */
-    public function getTour() {
-        return $this->tour;
-    }
-    
-    /**
-     * 
-     * @param type \AppBundle\Entity\Tour
-     */
-    public function setTour($tour) {
-        $this->tour = $tour;
-        
         return $this;
     }
 
+    /**
+     * Remove tours
+     *
+     * @param \AppBundle\Entity\Tour $tours
+     */
+    public function removeTour(\AppBundle\Entity\Tour $tours)
+    {
+        $this->tours->removeElement($tours);
+    }
+
+    /**
+     * Get tours
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTours()
+    {
+        return $this->tours;
+    }
+
+    /**
+     * Add services
+     *
+     * @param \AppBundle\Entity\Service $services
+     * @return UserRequest
+     */
+    public function addService(\AppBundle\Entity\Service $services)
+    {
+        $this->services[] = $services;
+
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \AppBundle\Entity\Service $services
+     */
+    public function removeService(\AppBundle\Entity\Service $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
 }
