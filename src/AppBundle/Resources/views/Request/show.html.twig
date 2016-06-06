@@ -1,28 +1,107 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Просмотр заявки
+{% endblock %}
 {% block body -%}
-    <h1>Request</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Просмотр заявки</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="id-group">Номер заявки</span>
+                <input type="text" disabled value="{{entity.id}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="user-group">Пользователь</span>
+                <input type="text" disabled value="{{entity.user.username}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="user-group">E-mail</span>
+                <input type="text" disabled value="{{entity.user.email}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <p>
+            <div class="panel panel-default">
+                <div class="panel-heading panel-header">
+                    <h3 class="panel-title">Туры</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="th-index th-class">#</th>
+                                <th class="th-class">Название</th>
+                                <th class="th-class">Адрес</th>
+                                <th class="th-class">Дата начала</th>
+                                <th class="th-class">Дата окончания</th>
+                                <th class="th-index th-class">Количество мест</th>
+                                <th class="th-class">Стоимость</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tour in entity.tours %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ tour.name }} </td>
+                                    <td>{{ tour.address }}</td>
+                                    <td>{{ tour.begin|date('d-m-Y') }}</td>
+                                    <td>{{ tour.end|date('d-m-Y') }}</td>
+                                    <td>{{ tour.places }}</td>
+                                    <td>{{ tour.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="panel panel-default">
+                <div class="panel-heading panel-header">
+                    <h3 class="panel-title">Услуги</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="th-index th-class">#</th>
+                                <th class="th-class">Название</th>
+                                <th class="th-class">База отдыха</th>
+                                <th class="th-class">Субподрядчик</th>
+                                <th class="th-class">Услуга для базы</th>
+                                <th class="th-class">Цена</th>
+                                <th class="th-action th-class">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in entity.services %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ service.name }}</td>
+                                    <td>{{ service.base }}</td>
+                                    <td>{{ service.sublegal }}</td>
+                                    <td>
+                                        {% if service.bases == 1 %}
+                                            Да
+                                        {% else %}
+                                            Нет
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ service.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('request') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('request_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <div class="panel-actions">
+                <a class="btn btn-default" href="{{ path('request') }}">Назад</a>
+            </div>
+            {{ form_start(delete_form) }}
+            {{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'} }) }}
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+</div>
 {% endblock %}

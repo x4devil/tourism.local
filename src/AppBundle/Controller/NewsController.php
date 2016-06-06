@@ -60,6 +60,7 @@ class NewsController extends Controller {
         return array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'activePage' => $this->activePage,
         );
     }
 

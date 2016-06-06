@@ -1,39 +1,41 @@
-{% extends '::base.html.twig' %}
-
+{% extends '::adminbase.html.twig' %}
+{% block title %}
+    Заявки
+{% endblock %}
 {% block body -%}
-    <h1>Request list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('request_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('request_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('request_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('request_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <div class="header-left-block">
+                <h3 class="panel-title">Список заявок</h3>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="th-index th-class">#</th>
+                    <th class="th-class">Номер заявки</th>
+                    <th class="th-class">Пользователь</th>
+                    <th class="th-class">E-mail</th>
+                    <th class="th-action th-class">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ entity.id }}</td>
+                        <td>{{ entity.user.username }}</td>
+                        <td>{{ entity.user.email }}</td>
+                        <td>
+                            <a href="{{ path('request_show', { 'id': entity.id }) }}">
+                                <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                Просмотр
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
