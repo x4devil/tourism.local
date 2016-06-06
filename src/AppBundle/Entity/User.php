@@ -43,6 +43,9 @@ class User extends BaseUser {
 
     public function __construct() {
         parent::__construct();
+        $this->name = "";
+        $this->lastname = "";
+        $this->surname = "";
         // your own logic
     }
 

@@ -23,4 +23,17 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/base/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/base/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/tour, role: ROLE_SUPER_ADMIN }
+        - { path: ^/tour/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/service, role: ROLE_SUPER_ADMIN }
+        - { path: ^/service/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/category, role: ROLE_SUPER_ADMIN }
+        - { path: ^/category/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/sublegal, role: ROLE_SUPER_ADMIN }
+        - { path: ^/sublegal/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/request, role: ROLE_SUPER_ADMIN }
+        - { path: ^/request/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/news, role: ROLE_SUPER_ADMIN }
+        - { path: ^/news/new, role: ROLE_SUPER_ADMIN }
