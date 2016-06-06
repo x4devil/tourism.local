@@ -1,15 +1,30 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Добавление новости
+{% endblock %}
 {% block body -%}
-    <h1>News creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('news') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Добавление новости</h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form)}}
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">{{ form_label(form.name) }}</span>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description-group">{{ form_label(form.description) }}</span>
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control', 'aria-describedby' : 'description-group', 'placeholder': 'Описание'} }) }}
+            </div>
+            <div class="panel-actions">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('news') }}">Назад</a>
+                <div>
+                    {{ form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

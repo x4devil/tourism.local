@@ -1,36 +1,25 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
+{% block title %}
+    Просмотр новости
+{% endblock %}
 {% block body -%}
-    <h1>News</h1>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('news') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('news_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Просмотр новости</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">Название</span>
+                <input type="text" disabled value="{{entity.name}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description-group">Описание</span>
+                <input type="text" disabled value="{{entity.description}}" class="form-control" aria-describedby="input-group-addon"/>
+            </div>
+            <div class="panel-actions">
+                <a class="btn btn-default" href="{{ path('news') }}">Назад</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
