@@ -59,6 +59,11 @@
                         {% else %}
                             <li><a href="{{ path('request') }}">Заявки</a></li>
                         {% endif %}
+                        {% if activePage == 'news' %}
+                            <li class="active"><a href="{{ path('news') }}">Новости</a></li>
+                        {% else %}
+                            <li><a href="{{ path('news') }}">Новости</a></li>
+                        {% endif %}
                         </ul>
                     </div>
                 </div>

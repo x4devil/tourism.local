@@ -1,15 +1,59 @@
-{% extends '::base.html.twig' %}
+{% extends '::adminbase.html.twig' %}
 
-{% block body -%}
-    <h1>Service creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('service') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block title %}
+    Добавление услуги
 {% endblock %}
+{% block body -%}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-header">
+            <h3 class="panel-title">Добавление услуги</h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form)}}
+            <div class="input-group">
+                <span class="input-group-addon" id="name-group">{{ form_label(form.name) }}</span>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description-group">{{ form_label(form.description) }}</span>
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control', 'aria-describedby' : 'description-group', 'placeholder': 'Описание'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="price-group">{{ form_label(form.price) }}</span>
+                {{ form_widget(form.price, { 'attr': {'class': 'form-control', 'aria-describedby' : 'price-group', 'placeholder': 'Стоимость'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="base-group">{{ form_label(form.base) }}</span>
+                {{ form_widget(form.base, { 'attr': {'class': 'form-control', 'aria-describedby' : 'base-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sublegal-group">{{ form_label(form.sublegal) }}</span>
+                {{ form_widget(form.sublegal, { 'attr': {'class': 'form-control', 'aria-describedby' : 'sublegal-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="bases-group">{{ form_label(form.bases) }}</span>
+                {{ form_widget(form.bases, { 'attr': {'class': 'form-control', 'aria-describedby' : 'bases-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="x-group">{{ form_label(form.x) }}</span>
+                {{ form_widget(form.x, { 'attr': {'class': 'form-control', 'aria-describedby' : 'x-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="y-group">{{ form_label(form.y) }}</span>
+                {{ form_widget(form.y, { 'attr': {'class': 'form-control', 'aria-describedby' : 'y-group'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="category-group">{{ form_label(form.category) }}</span>
+                {{ form_widget(form.category, { 'attr': {'class': 'form-control', 'aria-describedby' : 'category-group', 'required': 'true'} }) }}
+            </div>
+            <div class="panel-actions">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                <a class="btn btn-default" href="{{ path('service') }}">Назад</a>
+                <div>
+                    {{ form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -14,15 +14,15 @@ class ServiceType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('name')
-                ->add('description')
-                ->add('price')
-                ->add('bases')
-                ->add('x')
-                ->add('y')
-                ->add('sublegal')
-                ->add('base')
-                ->add('category')
+                ->add('name', null, array('label' => 'Название'))
+                ->add('description', null, array('label' => 'Описание'))
+                ->add('price', null, array('label' => 'Стоимость'))
+                ->add('bases', null, array('label' => 'Услуга для базы'))
+                ->add('x', null, array('label' => 'X'))
+                ->add('y', null, array('label' => 'Y'))
+                ->add('sublegal', null, array('label' => 'Субподрядчик'))
+                ->add('base', null, array('label' => 'База отдыха'))
+                ->add('category', null, array('label' => 'Категория'))
         ;
     }
 
