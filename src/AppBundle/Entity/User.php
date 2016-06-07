@@ -46,6 +46,8 @@ class User extends BaseUser {
         $this->name = "";
         $this->lastname = "";
         $this->surname = "";
+        $this->role = array();
+        $this->roles[] = 'ROLE_USER';
         // your own logic
     }
 

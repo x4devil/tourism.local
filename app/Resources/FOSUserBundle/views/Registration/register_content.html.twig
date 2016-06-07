@@ -1,0 +1,26 @@
+<div class="container">
+    <h3>Регистрация</h3>
+
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+        <div class="form-group">
+            <label for="inputUsernameEmail">Имя пользователя</label>
+            {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'required':'true'} }) }}
+        </div>
+        <div class="form-group">
+            <label for="inputUsernameEmail">E-mail</label>
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'required':'true'} }) }}
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Пароль</label>
+            {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'required':'true'} }) }}
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Пароль еще раз</label>
+             {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'required':'true'} }) }}
+        </div>
+        <button type="submit" class="btn btn btn-primary">
+            Регистрация
+        </button>
+        {{ form_widget(form._token) }}
+    </form>
+</div>

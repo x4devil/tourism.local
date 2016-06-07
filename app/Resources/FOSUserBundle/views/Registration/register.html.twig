@@ -1,0 +1,6 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <link href="/web/admin/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
