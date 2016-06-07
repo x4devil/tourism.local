@@ -50,6 +50,16 @@ class NewsController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $path = __DIR__ . '../../../../web/img/news/';
+            $now = \DateTime::createFromFormat('U.u', microtime(true));
+            $name = '/web/img/news/' . md5($now->format('Y-m-d H:i:s.u')) . '.jpg';
+
+            $photo = $request->files->get('photo');
+            if ($photo) {
+                $photo->move($path, $name);
+                $entity->setPhoto($name);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -191,6 +201,16 @@ class NewsController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $path = __DIR__ . '../../../../web/img/news/';
+            $now = \DateTime::createFromFormat('U.u', microtime(true));
+            $name = '/web/img/news/' . md5($now->format('Y-m-d H:i:s.u')) . '.jpg';
+
+            $photo = $request->files->get('photo');
+            if ($photo) {
+                $photo->move($path, $name);
+                $entity->setPhoto($name);
+            }
+            
             $em->flush();
 
             return $this->redirect($this->generateUrl('news_edit', array('id' => $id)));

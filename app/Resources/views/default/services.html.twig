@@ -2,79 +2,72 @@
 
 {% block body %}
     <div class="row">
-             {% if categories != NULL %}
+        {% if categories != NULL %}
             <div class="col-sm-2  col-lg-4 blog-sidebar hidden-xs">
-                 <div class="sidebar-module">
-                   <h4>Категории</h4>
-                   {% for category in categories %}
-                   <ol class="list-unstyled">
-                       {% if category.id == categoryActive %}
-                            <li><a class="cursor-pointer boldest" val="{{category.id}}" 
-                                   onclick="window.location.href 
-                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
-                                {{category.name}}</a></li>
-                        {% else %}
-                            <li><a class="cursor-pointer" val="{{category.id}}" 
-                                   onclick="window.location.href 
-                                    = '/services/page1?categoryId=' + $(this).attr('val');" >
-                                    {{category.name}}</a></li>
-                        {% endif %}
-                   </ol>
-                   {% endfor %}
-                 </div>
-             </div>
-            {% endif %}
-            <div class="col-sm-10 col-lg-8  blog-main">
-                {% for service in services %}
+                <div class="sidebar-module">
+                    <h4>Категории</h4>
+                    {% for category in categories %}
+                        <ol class="list-unstyled">
+                            {% if category.id == categoryActive %}
+                                <li><a class="cursor-pointer boldest" val="{{category.id}}" 
+                                       onclick="window.location.href
+                                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                        {{category.name}}</a></li>
+                                    {% else %}
+                                <li><a class="cursor-pointer" val="{{category.id}}" 
+                                       onclick="window.location.href
+                                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                        {{category.name}}</a></li>
+                                    {% endif %}
+                        </ol>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-sm-10 col-lg-8  blog-main">
+            {% for service in services %}
+                <form method="post" action="/services/page{{activePage}}/{{service.id}}">
+                    <input name="_method" value="PUT" type="hidden"/>
                     <div class="tour clearfix"> 
                         <div class="clearfix">
                             <div class="col-sm-6">
                                 <h4>{{service.name}}</h4>
-                                <h5 id="priceForOne" price="{{service.price}}">Цена: {{service.price}} (чел.)</h5>
-                                <h5>Организатор: {{service.getSublegal().getFio()}}</h5>
+                                <h5 id="priceForOne" price="{{service.price}}">Цена: {{service.price}}</h5>
+                                <h5>Организатор: {%if service.getSublegal() != null %}{{service.getSublegal().getFio()}} {% endif %}</h5>
                                 <h5>Описание: {{service.description}}</h5>
-                                
-                                <p>
-                                    Укажите количество человек
-                                    <select>
-                                        {% for i in 1..10 %}
-                                            <option>{{i}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </p>
-                                
                                 <h4 class="price">Общая цена: {{service.price}} рублей.</h4>
                             </div>
                             <div class="col-sm-6">
                             </div>
                         </div>
-                            
-                            <button type="button" class="btn btn-primary center-block">Добавить в корзину</button>
+                        <button type="submit" class="btn btn-primary center-block">Добавить в корзину</button>
                     </div>
-                {% endfor %}
-                <div class="pagination-center">
+                </form>
+
+            {% endfor %}
+            <div class="pagination-center">
                 {% if pageCount != 0%}
                     <ul class="pagination">
                         {% for page in pageCount..1 %}
                             {% if categoryActive != null %}
                                 {% if loop.index == activePage %}
                                     <li  class="active"><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
-                                {% else %}
+                                    {% else %}
                                     <li><a href="/tours/page{{loop.index}}?categoryId={{categoryActive}}">{{loop.index}}</a></li>
-                                {% endif %}
-                            {% else %}
-                                {% if loop.index == activePage %}
-                                    <li  class="active"><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                    {% endif %}
                                 {% else %}
+                                    {% if loop.index == activePage %}
+                                    <li  class="active"><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                    {% else %}
                                     <li><a href="/tours/page{{loop.index}}">{{loop.index}}</a></li>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
                     </ul>
                 {% endif %}
-                </div>
             </div>
         </div>
+    </div>
 {% endblock %}
 
 {% block title %}

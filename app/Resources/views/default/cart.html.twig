@@ -2,67 +2,63 @@
 
 {% block body %}
     <div class="clearfix">
-      <table class="table">
-        <thead>
-          <tr>
-            <td>#</td>
-            <td>Название</td>
-            <td>Тип</td>
-            <td>Категория</td>
-            <td>Цена(руб.)</td>
-            <td>Действие</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Тур хуюр</td>
-            <td>Тур</td>
-            <td>лесной</td>
-            <td class="price">5000</td>
-            <td>
-                <a href="/base/1/edit">
-                    Удалить
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Весенний половодье</td>
-            <td>Тур</td>
-            <td>речной</td>
-            <td class="price">4500</td>
-            <td>
-                <a href="/base/1/edit">
-                    Удалить
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </a>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Рыбалка</td>
-            <td>Услуга</td>
-            <td>пизда</td>
-            <td class="price">4500</td>
-            <td>
-                <a href="/base/1/edit">
-                    Удалить
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </a>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td id="total" colspan="2"></td>
-          </tr>
-        </tbody>
-      </table>
-        <button type="button" class="btn btn-primary pull-right">Оформить заказ</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Название</td>
+                    <td>Тип</td>
+                    <td>Категория</td>
+                    <td>Цена(руб.)</td>
+                    <td>Действие</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tour in tours %}
+                    <tr>
+                        <td>{{ tour.name }}</td>
+                        <td>Тур</td>
+                        <td>{{ tour.category.name }}</td>
+                        <td class="price">{{ tour.price }}</td>
+                        <td>
+                            <form method="post" action="{{path('delete_tour_cart', {'id' : tour.id})}}">
+                                <input name="_method" value="DELETE" type="hidden"/>
+                                <button type="submit" class="btn btn-primary center-block">
+                                    Удалить
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for service in services %}
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>Услуга</td>
+                        <td>{{ service.category.name }}</td>
+                        <td class="price">{{ service.price }}</td>
+                        <td>
+                            <form method="post" action="{{path('delete_service_cart', {'id' : service.id})}}">
+                                <input name="_method" value="DELETE" type="hidden"/>
+                                <button type="submit" class="btn btn-primary center-block">
+                                    Удалить
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td id="total" colspan="2"></td>
+                </tr>
+            </tbody>
+        </table>
+        <form method="post" action="{{path('confirm_request')}}">
+            <input name="_method" value="PUT" type="hidden"/>
+            <button type="submit" class="btn btn-primary pull-right">Оформить заказ</button>
+        </form>
     </div>
 {% endblock %}
 

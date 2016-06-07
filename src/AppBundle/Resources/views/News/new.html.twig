@@ -9,7 +9,7 @@
             <h3 class="panel-title">Добавление новости</h3>
         </div>
         <div class="panel-body">
-            {{ form_start(form)}}
+            {{ form_start(form, {'attr' : {'enctype':'multipart/form-data'}})}}
             <div class="input-group">
                 <span class="input-group-addon" id="name-group">{{ form_label(form.name) }}</span>
                 {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'aria-describedby' : 'name-group', 'placeholder': 'Название'} }) }}
@@ -17,6 +17,10 @@
             <div class="input-group">
                 <span class="input-group-addon" id="description-group">{{ form_label(form.description) }}</span>
                 {{ form_widget(form.description, { 'attr': {'class': 'form-control', 'aria-describedby' : 'description-group', 'placeholder': 'Описание'} }) }}
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="photo-group">Фото</span>
+                <input name="photo" type="file" class="form-control" aria-describedby="photo-group" required/>
             </div>
             <div class="panel-actions">
                 {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'} }) }}

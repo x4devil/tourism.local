@@ -13,7 +13,7 @@ $(document).ready(function(){
                     $checkBoxValue += parseInt($(this).attr("price"));
                 }
             });
-            var $b = parseInt($checkBoxValue * $('select').val())+parseInt($value);
+            var $b = parseInt($checkBoxValue)+parseInt($value);
             
             $('#price').text("Общая цена: " + $b + " рублей.");
             
@@ -26,7 +26,7 @@ $(document).ready(function(){
                 calculation(); 
             }
         });
-        $('select').change(function(){
-            calculation();
-        });
+//        $('select').change(function(){
+//            calculation();
+//        });
 });

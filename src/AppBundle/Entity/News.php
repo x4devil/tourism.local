@@ -33,6 +33,13 @@ class News {
      * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
     private $description;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=500, nullable=false)
+     */
+    private $photo;
 
     /**
      * Get id
@@ -74,6 +81,27 @@ class News {
         $this->description = $description;
 
         return $this;
+    }
+    
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return Tour
+     */
+    public function setPhoto($photo) {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getPhoto() {
+        return $this->photo;
     }
 
     /**

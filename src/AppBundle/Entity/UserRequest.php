@@ -30,11 +30,13 @@ class UserRequest
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="Tour", mappedBy="userrequest", cascade={"persist", "remove"})
      */
     private $tours;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="userrequest", cascade={"persist", "remove"})
      */
     private $services;
 
