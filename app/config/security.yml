@@ -38,4 +38,5 @@ security:
         - { path: ^/request/new$, role: ROLE_SUPER_ADMIN }
         - { path: ^/news$, role: ROLE_SUPER_ADMIN }
         - { path: ^/news/new$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin$, role: ROLE_SUPER_ADMIN }
         - { path: ^/cart$, role: ROLE_USER }

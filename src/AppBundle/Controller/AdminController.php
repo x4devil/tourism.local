@@ -23,12 +23,6 @@ class AdminController extends Controller {
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:Base')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
+        return $this->redirect($this->generateUrl('base'));
     }
 }
