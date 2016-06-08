@@ -11,12 +11,12 @@
                             {% if category.id == categoryActive %}
                                 <li><a class="cursor-pointer boldest" val="{{category.id}}" 
                                        onclick="window.location.href
-                                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                                       = '/services/page1?categoryId=' + $(this).attr('val');" >
                                         {{category.name}}</a></li>
                                     {% else %}
                                 <li><a class="cursor-pointer" val="{{category.id}}" 
                                        onclick="window.location.href
-                                                   = '/services/page1?categoryId=' + $(this).attr('val');" >
+                                                       = '/services/page1?categoryId=' + $(this).attr('val');" >
                                         {{category.name}}</a></li>
                                     {% endif %}
                         </ol>
@@ -37,7 +37,9 @@
                                 <h5>Описание: {{service.description}}</h5>
                                 <h4 class="price">Общая цена: {{service.price}} рублей.</h4>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="map" style="height: 300px;">
+                                <input id="latX" type="hidden" value="{{ service.X }}"/>
+                                <input id="latY" type="hidden" value="{{ service.Y }}"/>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary center-block">Добавить в корзину</button>
@@ -80,6 +82,27 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        function initMap() {
+            var x = parseFloat($('#latX').val());
+            var y = parseFloat($('#latY').val());
+            console.log(x + ' ' + y);
+            var myLatLng = {lat: x, lng: y};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB32-s1b_NmsJfdZWO3yaV4DT3-tl-SSM&signed_in=true&callback=initMap"></script>
     <script src="/web/admin/js/jquery.min.js"></script>
     <script src="/web/admin/js/bootstrap.min.js"></script>
     <script src="/web/admin/js/calc2.js"></script>

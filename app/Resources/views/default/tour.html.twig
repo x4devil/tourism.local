@@ -82,20 +82,44 @@
             <h4 id="price">Общая цена: </h4>
             <button type="submit" class="btn btn-primary center-block">Добавить в корзину</button>
         </form>
-    </div>
-{% endblock %}
+            <input id="latX" type="hidden" value="{{ tour.X }}"/>
+            <input id="latY" type="hidden" value="{{ tour.Y }}"/>
+        <div id="map" style="height:500px;"></div>
+    {% endblock %}
 
-{% block title %}
-    {{ tour. name }}
-{% endblock %}
+    {% block title %}
+        {{ tour. name }}
+    {% endblock %}
 
-{% block stylesheets %}
-    <link href="/web/admin/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="/web/css/style.css" rel="stylesheet" type="text/css"/>
-{% endblock %}
+    {% block stylesheets %}
+        <link href="/web/admin/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/web/css/style.css" rel="stylesheet" type="text/css"/>
+    {% endblock %}
 
-{% block javascripts %}
-    <script src="/web/admin/js/jquery.min.js"></script>
-    <script src="/web/admin/js/bootstrap.min.js"></script>
-    <script src="/web/admin/js/calc.js"></script>
-{% endblock %}
+    {% block javascripts %}
+        <script>
+
+            function initMap() {
+                var x = parseFloat($('#latX').val());
+                var y = parseFloat($('#latY').val());
+                console.log(x + ' ' + y);
+                var myLatLng = {lat: x, lng: y};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: myLatLng
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                });
+            }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB32-s1b_NmsJfdZWO3yaV4DT3-tl-SSM&signed_in=true&callback=initMap"></script>
+        <script src = "/web/admin/js/jquery.min.js" ></script>
+        <script src="/web/admin/js/bootstrap.min.js"></script>
+        <script src="/web/admin/js/calc.js"></script>
+    {% endblock %}
